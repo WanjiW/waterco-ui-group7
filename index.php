@@ -65,7 +65,7 @@
                     include 'bills.php';
                 } elseif ($page == 'payments') {
                     include 'payments.php';
-                } else {
+                } elseif ($page == 'routes') {
                     include 'routes.php';
                 }
             } else {
@@ -80,6 +80,7 @@
         <script src="assets/js/waterco-bills.js"></script>
         <script src="assets/js/waterco-payments.js"></script>
         <script src="assets/js/waterco-routes.js"></script>
+        
     </body>
 </html>
 

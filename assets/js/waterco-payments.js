@@ -9,21 +9,23 @@ var selectedRecordID = null;
 var baseUrl = "http://localhost:5029";
 
 $(document).ready(function () {
-    $.ajax({
-        type: "GET",
-        url: baseUrl + "/payments",
-        cache: false,
-        success: function (response) {
-            console.log(response)
-            var data = response.data;
-            data.forEach((payment) => {
-                addRecordToTable(payment);
-            });
-        }
-    });
+    if (window.location.href == "http://localhost/SummativeWaterCo/waterco-ui/index.php?page=payments") {
+        $.ajax({
+            type: "GET",
+            url: baseUrl + "/payments",
+            cache: false,
+            success: function (response) {
+                console.log(response)
+                var data = response.data;
+                data.forEach((payment) => {
+                    addRecordToTablePayments(payment);
+                });
+            }
+        });
+    }
 });
 
-function addRecordToTable(data) {
+function addRecordToTablePayments(data) {
     var paymentslist = document.getElementById("paymentslist").getElementsByTagName("tbody")[0];
     var newRecord = paymentslist.insertRow(paymentslist.length);
 
@@ -43,11 +45,12 @@ function addRecordToTable(data) {
     cell7.innerHTML = data.PremiseID;
     cell8 = newRecord.insertCell(7);
     cell8.innerHTML = `<a onClick="onEdit(this)">Edit</a> 
-                        <a href="index.php?page=billsdash&id="` + data.PaymentID + `>View</a>
+                        <a href="index.php?page=paymentsdash&id="` + data.PaymentID + `>View</a>
                         <a onClick="onDelete(this)">Delete</a>`;
 }
 
-function onFormSubmit() {
+function onFormSubmitPayments() {
+    console.log("hi")
     var formData = {};
     formData["PaymentID"] = document.getElementById("PaymentID").value;
     formData["BillStatus"] = document.getElementById("BillStatus").value;
@@ -58,15 +61,16 @@ function onFormSubmit() {
     formData["PremiseID"] = document.getElementById("PremiseID").value;
 
     if (selectedRecord == null) {
-        saveFormData(formData);
-        // console.log(formData)
+        saveFormDataPayments(formData);
+        console.log(formData)
     } else {
-        updateFormRecord(formData);
+        updateFormRecordPayments(formData);
     }
-    clearForm();
+    clearFormPayments();
 }
 
-function saveFormData(data) {
+
+function saveFormDataPayments(data) {
     var postData = JSON.stringify(data);
     $.ajax({
         type: "POST",
@@ -76,12 +80,12 @@ function saveFormData(data) {
         contentType: "application/json; charset=utf-8",
         cache: false,
         success: function (response) {
-            addRecordToTable(response.data);
+            addRecordToTablePayments(response.data);
         }
     });
 }
 
-function onEdit(td) {
+function onEditPayments(td) {
     selectedRecord = td.parentElement.parentElement;
     selectedRecordID = selectedRecord.cells[0].innerHTML;
     document.getElementById("PaymentID").value = selectedRecord.cells[1].innerHTML;
@@ -93,7 +97,7 @@ function onEdit(td) {
     document.getElementById("PremiseID").value = selectedRecord.cells[7].innerHTML;
 }
 
-function updateFormRecord(data) {
+function updateFormRecordPayments(data) {
     var updateData = JSON.stringify(data);
     $.ajax({
         type: 'PUT',
@@ -103,13 +107,13 @@ function updateFormRecord(data) {
         contentType: "application/json; charset=utf-8",
         cache: false,
         success: function () {
-            updateTableRecord(data);
+            updateTableRecordPayments(data);
         }
     });
 
 }
 
-function updateTableRecord(data) {
+function updateTableRecordPayments(data) {
     selectedRecord.cells[0].innerHTML = selectedRecordID;
     selectedRecord.cells[1].innerHTML = data.PaymentID;
     selectedRecord.cells[2].innerHTML = data.BillStatus;
@@ -120,16 +124,16 @@ function updateTableRecord(data) {
     selectedRecord.cells[7].innerHTML = data.PremiseID
 }
 
-function onDelete(td) {
+function onDeletePayments(td) {
     if (confirm('Are you sure you want to delete this record')) {
         row = td.parentElement.parentElement;
         document.getElementById("paymentslist").deleteRow(row.rowIndex);
-        clearForm();
+        clearFormPayments();
     }
 
 }
 
-function clearForm() {
+function clearFormPayments() {
     document.getElementById("PaymentID").value = "";
     document.getElementById("BillStatus").value = "";
     document.getElementById("Bill").value = "";

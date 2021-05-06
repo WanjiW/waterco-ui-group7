@@ -3,7 +3,7 @@
 </div>
 <div class="row">
     <div class="col-md-4">
-        <form onsubmit="event.preventDefault(); onFormSubmit();">
+        <form onsubmit="event.preventDefault(); onFormSubmitRoutes();">
             <div class="form-group row">
                 <label for="RouteNumber" class="col-sm-4 col-form-label col-form-label-sm">RouteNumber:</label>
                 <div class="col-sm-8">
