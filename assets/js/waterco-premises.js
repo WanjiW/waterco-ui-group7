@@ -1,6 +1,6 @@
 var selectedRecord = null;
 var selectedRecordID = null;
-var baseUrl = "http://localhost:3500";
+var baseUrl = "http://localhost:5029";
 
 $(document).ready(function () {
      
@@ -43,7 +43,6 @@ function addRecordToTablePremise(data) {
     cell8.innerHTML=data.MeterNumber;
     cell9 = newRecord.insertCell(8);
     cell9.innerHTML = `<a onClick="onEditPremise(this)">Edit</a> 
-                        <a href="index.php?page=billsdash&id="` + data.PremiseID + `>View</a>
                         <a onClick="onDeletePremise(this)">Delete</a>`;
 }
 
@@ -88,14 +87,14 @@ function saveFormDataPremise(data) {
 function onEditPremise(td) {
     selectedRecord = td.parentElement.parentElement;
     selectedRecordID = selectedRecord.cells[0].innerHTML;
-    document.getElementById("PremiseID").value = selectedRecord.cells[1].innerHTML;
-    document.getElementById("PremiseName").value = selectedRecord.cells[2].innerHTML;
-    document.getElementById("CustomerID").value = selectedRecord.cells[3].innerHTML;
-    document.getElementById("ZoneID").value = selectedRecord.cells[4].innerHTML;
-    document.getElementById("Classification").value = selectedRecord.cells[5].innerHTML;
-    document.getElementById("RouteNumber").value = selectedRecord.cells[6].innerHTML;
-    document.getElementById("PremiseStatus").value = selectedRecord.cells[7].innerHTML;
-    document.getElementById("MeterNumber").value = selectedRecord.cells[8].innerHTML
+    // document.getElementById("PremiseID").value = selectedRecord.cells[0].innerHTML;
+    document.getElementById("PremiseName").value = selectedRecord.cells[1].innerHTML;
+    document.getElementById("CustomerID").value = selectedRecord.cells[2].innerHTML;
+    document.getElementById("ZoneID").value = selectedRecord.cells[3].innerHTML;
+    document.getElementById("Classification").value = selectedRecord.cells[4].innerHTML;
+    document.getElementById("RouteNumber").value = selectedRecord.cells[5].innerHTML;
+    document.getElementById("PremiseStatus").value = selectedRecord.cells[6].innerHTML;
+    document.getElementById("MeterNumber").value = selectedRecord.cells[7].innerHTML
 }
 
 function updateFormRecordPremise(data) {

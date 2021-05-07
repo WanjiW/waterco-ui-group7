@@ -9,8 +9,8 @@ var selectedRecordID = null;
 var baseUrl = "http://localhost:5029";
 
 $(document).ready(function () {
-    if (window.location.href == "http://localhost/SummativeWaterCo/waterco-ui/index.php?page=bills") {
-        console.log(window.location.href)
+    // if (window.location.href == "http://localhost/SummativeWaterCo/main/waterco-ui-group7/index.php?page=bills") {
+    //     console.log(window.location.href)
         $.ajax({
             type: "GET",
             url: baseUrl + "/bills",
@@ -23,7 +23,7 @@ $(document).ready(function () {
                 });
             }
         });
-    }
+    // }
 });
 
 function addRecordToTableBills(data) {
@@ -44,7 +44,6 @@ function addRecordToTableBills(data) {
     cell6.innerHTML = data.Balance;
     cell7 = newRecord.insertCell(6);
     cell7.innerHTML = `<a onClick="onEditBills(this)">Edit</a> 
-                        <a href="index.php?page=billsdash&id="` + data.PaymentID + `>View</a>
                         <a onClick="onDeleteBills(this)">Delete</a>`;
 }
 

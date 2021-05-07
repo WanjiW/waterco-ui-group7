@@ -9,8 +9,8 @@ var selectedRecordID = null;
 var baseUrl = "http://localhost:5029";
 
 $(document).ready(function () {
-    if (window.location.href == "http://localhost/SummativeWaterCo/waterco-ui/index.php?page=routes") { // add instructions for this to the README
-        console.log(window.location.href)
+    // if (window.location.href == "http://localhost/SummativeWaterCo/waterco-ui/index.php?page=routes") { // add instructions for this to the README
+    //     console.log(window.location.href)
         $.ajax({
             type: "GET",
             url: baseUrl + "/routes",
@@ -23,7 +23,7 @@ $(document).ready(function () {
                 });
             }
         });
-    }
+    // }
 });
 
 function addRecordToTableRoutes(data) {
@@ -38,7 +38,6 @@ function addRecordToTableRoutes(data) {
     cell3.innerHTML = data.ZoneID;
     cell4 = newRecord.insertCell(3);
     cell4.innerHTML = `<a onClick="onEditRoutes(this)">Edit</a> 
-                        <a href="index.php?page=routesdash&id="` + data.RouteNumber + `>View</a>
                         <a onClick="onDeleteRoutes(this)">Delete</a>`;
 
 }

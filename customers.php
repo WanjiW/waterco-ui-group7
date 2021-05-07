@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">customers</h1>
+    <h1 class="h2">Customers</h1>
 </div>
 <div class="row">
     <div class="col-md-4">
@@ -8,22 +8,19 @@
                 <label for="CustomerName" class="col-sm-4 col-form-label col-form-label-sm">CustomerName:</label>
                 <div class="col-sm-8">
                     <input type="text" name="CustomerName" class="form-control form-control-sm" id="CustomerName" placeholder="Member Name">
-                    </div>
-
                 </div>
+            </div>
             <div class="form-group row">
                 <label for="PhoneNo" class="col-sm-4 col-form-label col-form-label-sm">PhoneNo</label>
                 <div class="col-sm-8">
                     <input type="text" name="PhoneNo" class="form-control form-control-sm" id="PhoneNo" placeholder="Telephone Number">
                 </div>
             </div>
- 
             <div class="form-group row">
                 <label for="EmailAddress" class="col-sm-4 col-form-label col-form-label-sm">EmailAddress:</label>
                 <div class="col-sm-8">
                     <input type="email" name="email_address" class="form-control form-control-sm" id="EmailAddress" placeholder="Email Address">
                 </div>
-
             </div>
             </div>
             <div class="form-group row">
@@ -42,8 +39,6 @@
                         <th>CustomerName</th>
                         <th>PhoneNo</th>
                         <th>EmailAddress</th>
-                        
- 
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
