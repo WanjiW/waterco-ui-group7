@@ -19,14 +19,14 @@ $(document).ready(function () {
                 console.log(response)
                 var data = response.data;
                 data.forEach((route) => {
-                    addRecordToTableRoutes(route);
+                    addRecordToTable(route);
                 });
             }
         });
     }
 });
 
-function addRecordToTableRoutes(data) {
+function addRecordToTable(data) {
     var routeslist = document.getElementById("routeslist").getElementsByTagName("tbody")[0];
     var newRecord = routeslist.insertRow(routeslist.length);
 
@@ -42,7 +42,7 @@ function addRecordToTableRoutes(data) {
                         <a onClick="onDelete(this)">Delete</a>`;
 }
 
-function onFormSubmitRoutes() {
+function onFormSubmit() {
     var formData = {};
     formData["RouteNumber"] = document.getElementById("RouteNumber").value;
     formData["RouteStatus"] = document.getElementById("RouteStatus").value;
@@ -50,15 +50,15 @@ function onFormSubmitRoutes() {
 
 
     if (selectedRecord == null) {
-        saveFormDataRoutes(formData);
+        saveFormData(formData);
         // console.log(formData)
     } else {
-        updateFormRecordRoutes(formData);
+        updateFormRecord(formData);
     }
-    clearFormRoutes();
+    clearForm();
 }
 
-function saveFormDataRoutes(data) {
+function saveFormData(data) {
     var postData = JSON.stringify(data);
     $.ajax({
         type: "POST",
@@ -68,20 +68,20 @@ function saveFormDataRoutes(data) {
         contentType: "application/json; charset=utf-8",
         cache: false,
         success: function (response) {
-            addRecordToTableRoutes(response.data);
+            addRecordToTable(response.data);
         }
     });
 }
 
-function onEditRoutes(td) {
+function onEdit(td) {
     selectedRecord = td.parentElement.parentElement;
     selectedRecordID = selectedRecord.cells[0].innerHTML;
-    document.getElementById("RouteNumber").value = selectedRecord.cells[0].innerHTML; //comment out?
+    document.getElementById("RouteNumber").value = selectedRecord.cells[0].innerHTML;
     document.getElementById("RouteStatus").value = selectedRecord.cells[1].innerHTML;
     document.getElementById("ZoneID").value = selectedRecord.cells[2].innerHTML;
 }
 
-function updateFormRecordRoutes(data) {
+function updateFormRecord(data) {
     var updateData = JSON.stringify(data);
     $.ajax({
         type: 'PUT',
@@ -91,20 +91,20 @@ function updateFormRecordRoutes(data) {
         contentType: "application/json; charset=utf-8",
         cache: false,
         success: function () {
-            updateTableRecordRoutes(data);
+            updateTableRecord(data);
         }
     });
 
 }
 
-function updateTableRecordRoutes(data) {
+function updateTableRecord(data) {
     selectedRecord.cells[0].innerHTML = selectedRecordID;
-    selectedRecord.cells[1].innerHTML = data.RouteNumber; //comment out?
-    selectedRecord.cells[2].innerHTML = data.RouteStatus;
-    selectedRecord.cells[3].innerHTML = data.ZoneID;
+    selectedRecord.cells[0].innerHTML = data.RouteNumber; 
+    selectedRecord.cells[1].innerHTML = data.RouteStatus;
+    selectedRecord.cells[2].innerHTML = data.ZoneID;
 }
 
-function onDeleteRoutes(td) {
+function onDelete(td) {
     if (confirm('Are you sure you want to delete this record')) {
         row = td.parentElement.parentElement;
         document.getElementById("routeslist").deleteRow(row.rowIndex);
@@ -113,7 +113,7 @@ function onDeleteRoutes(td) {
 
 }
 
-function clearFormRoutes() {
+function clearForm() {
     document.getElementById("RouteNumber").value = "";
     document.getElementById("RouteStatus").value = "";
     document.getElementById("ZoneID").value = "";

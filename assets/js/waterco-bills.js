@@ -19,14 +19,14 @@ $(document).ready(function () {
                 console.log(response)
                 var data = response.data;
                 data.forEach((bill) => {
-                    addRecordToTableBills(bill);
+                    addRecordToTable(bill);
                 });
             }
         });
     }
 });
 
-function addRecordToTableBills(data) {
+function addRecordToTable(data) {
     var billslist = document.getElementById("billslist").getElementsByTagName("tbody")[0];
     var newRecord = billslist.insertRow(billslist.length);
 
@@ -48,10 +48,10 @@ function addRecordToTableBills(data) {
                         <a onClick="onDelete(this)">Delete</a>`;
 }
 
-function onFormSubmitBills() {
+function onFormSubmit() {
     var formData = {};
     console.log("hello");
-    formData["PaymentID"] = document.getElementById("PaymentID").value;
+    // formData["PaymentID"] = document.getElementById("PaymentID").value;
     formData["BillStatus"] = document.getElementById("BillStatus").value;
     formData["Bill"] = document.getElementById("Bill").value;
     formData["CustomerID"] = document.getElementById("CustomerID").value;
@@ -59,15 +59,15 @@ function onFormSubmitBills() {
     formData["Balance"] = document.getElementById("Balance").value;
 
     if (selectedRecord == null) {
-        saveFormDataBills(formData);
+        saveFormData(formData);
         console.log(formData)
     } else {
-        updateFormRecordBills(formData);
+        updateFormRecord(formData);
     }
-    clearFormBills();
+    clearForm();
 }
 
-function saveFormDataBills(data) {
+function saveFormData(data) {
     console.log(data)
     var postData = JSON.stringify(data);
     console.log(postData)
@@ -79,23 +79,23 @@ function saveFormDataBills(data) {
         contentType: "application/json; charset=utf-8",
         cache: false,
         success: function (response) {
-            addRecordToTableBills(response.data);
+            addRecordToTable(response.data);
         }
     });
 }
 
-function onEditBills(td) {
+function onEdit(td) {
     selectedRecord = td.parentElement.parentElement;
     selectedRecordID = selectedRecord.cells[0].innerHTML;
-    document.getElementById("PaymentID").value = selectedRecord.cells[1].innerHTML;
-    document.getElementById("BillStatus").value = selectedRecord.cells[2].innerHTML;
-    document.getElementById("Bill").value = selectedRecord.cells[3].innerHTML;
-    document.getElementById("CustomerID").value = selectedRecord.cells[4].innerHTML;
-    document.getElementById("StaffID").value = selectedRecord.cells[5].innerHTML;
-    document.getElementById("Balance").value = selectedRecord.cells[6].innerHTML;
+    // document.getElementById("PaymentID").value = selectedRecord.cells[0].innerHTML;
+    document.getElementById("BillStatus").value = selectedRecord.cells[1].innerHTML;
+    document.getElementById("Bill").value = selectedRecord.cells[2].innerHTML;
+    document.getElementById("CustomerID").value = selectedRecord.cells[3].innerHTML;
+    document.getElementById("StaffID").value = selectedRecord.cells[4].innerHTML;
+    document.getElementById("Balance").value = selectedRecord.cells[5].innerHTML;
 }
 
-function updateFormRecordBills(data) {
+function updateFormRecord(data) {
     var updateData = JSON.stringify(data);
     $.ajax({
         type: 'PUT',
@@ -105,33 +105,33 @@ function updateFormRecordBills(data) {
         contentType: "application/json; charset=utf-8",
         cache: false,
         success: function () {
-            updateTableRecordBills(data);
+            updateTableRecord(data);
         }
     });
 
 }
 
-function updateTableRecordBills(data) {
+function updateTableRecord(data) {
     selectedRecord.cells[0].innerHTML = selectedRecordID;
-    selectedRecord.cells[1].innerHTML = data.PaymentID;
-    selectedRecord.cells[2].innerHTML = data.BillStatus;
-    selectedRecord.cells[3].innerHTML = data.Bill;
-    selectedRecord.cells[4].innerHTML = data.CustomerID;
-    selectedRecord.cells[5].innerHTML = data.StaffID;
-    selectedRecord.cells[6].innerHTML = data.Balance;
+    selectedRecord.cells[0].innerHTML = data.PaymentID;
+    selectedRecord.cells[1].innerHTML = data.BillStatus;
+    selectedRecord.cells[2].innerHTML = data.Bill;
+    selectedRecord.cells[3].innerHTML = data.CustomerID;
+    selectedRecord.cells[4].innerHTML = data.StaffID;
+    selectedRecord.cells[5].innerHTML = data.Balance;
 }
 
-function onDeleteBills(td) {
+function onDelete(td) {
     if (confirm('Are you sure you want to delete this record')) {
         row = td.parentElement.parentElement;
         document.getElementById("billslist").deleteRow(row.rowIndex);
-        clearFormBills();
+        clearForm();
     }
 
 }
 
-function clearFormBills() {
-    document.getElementById("PaymentID").value = "";
+function clearForm() {
+    // document.getElementById("PaymentID").value = "";
     document.getElementById("BillStatus").value = "";
     document.getElementById("Bill").value = "";
     document.getElementById("CustomerID").value = "";
