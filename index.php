@@ -6,6 +6,7 @@
         <meta name="description" content="">
         <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
         <meta name="generator" content="Jekyll v4.0.1">
+
         <title>Water Company MSWC Staff Dashboard</title>
 
         <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/starter-template/">
@@ -53,6 +54,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="index.php?page=routes">Routes</a>
                     </li>
+                        <a class="nav-link" href="index.php?page=customers">Customers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?page=premises">Premises</a>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -67,7 +73,11 @@
                     include 'payments.php';
                 } elseif ($page == 'routes') {
                     include 'routes.php';
-                }
+                } elseif ($page == 'customers') {
+                    include 'customers.php';
+                } elseif ($page == 'premises') {
+                    include 'premises.php';
+                } 
             } else {
                 include 'home.php';
             }
@@ -77,10 +87,11 @@
         
         <script src="assets/js/jquery-3.3.1.js"></script>
         <script src="assets/js/bootstrap.bundle.js"></script>
-        <!-- <script src="assets/js/waterco.js"></script> -->
         <script src="assets/js/waterco-bills.js"></script>
         <script src="assets/js/waterco-payments.js"></script>
         <script src="assets/js/waterco-routes.js"></script>
+        <script src="assets/js/waterco-customers.js"></script>
+        <script src="assets/js/waterco-premises.js"></script>
 
     </body>
 </html>
