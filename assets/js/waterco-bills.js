@@ -1,4 +1,3 @@
-
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -10,26 +9,26 @@ var selectedRecordID = null;
 var baseUrl = "http://localhost:5029";
 
 $(document).ready(function () {
-    if (window.location.href == "http://localhost/SummativeWaterCo/waterco-ui/index.php?page=payments") {
+    if (window.location.href == "http://localhost/SummativeWaterCo/waterco-ui/index.php?page=bills") {
         console.log(window.location.href)
         $.ajax({
             type: "GET",
-            url: baseUrl + "/payments/" + sel,
+            url: baseUrl + "/bills",
             cache: false,
             success: function (response) {
                 console.log(response)
                 var data = response.data;
-                data.forEach((payment) => {
-                    addRecordToTablePayments(payment);
+                data.forEach((bill) => {
+                    addRecordToTableBills(bill);
                 });
             }
         });
     }
 });
 
-function addRecordToTablePayments(data) {
-    var paymentslist = document.getElementById("paymentslist").getElementsByTagName("tbody")[0];
-    var newRecord = paymentslist.insertRow(paymentslist.length);
+function addRecordToTableBills(data) {
+    var billslist = document.getElementById("billslist").getElementsByTagName("tbody")[0];
+    var newRecord = billslist.insertRow(billslist.length);
 
     cell1 = newRecord.insertCell(0);
     cell1.innerHTML = data.PaymentID;
@@ -44,12 +43,12 @@ function addRecordToTablePayments(data) {
     cell6 = newRecord.insertCell(5);
     cell6.innerHTML = data.Balance;
     cell7 = newRecord.insertCell(6);
-    cell7.innerHTML = `<a onClick="onEditPayments(this)">Edit</a> 
-                        <a href="index.php?page=paymentsdash&id="` + data.PaymentID + `>View</a>
-                        <a onClick="onDeletePayments(this)">Delete</a>`;
+    cell7.innerHTML = `<a onClick="onEditBills(this)">Edit</a> 
+                        <a href="index.php?page=billsdash&id="` + data.PaymentID + `>View</a>
+                        <a onClick="onDeleteBills(this)">Delete</a>`;
 }
 
-function onFormSubmitPayments() {
+function onFormSubmitBills() {
     var formData = {};
     console.log("hello");
     // formData["PaymentID"] = document.getElementById("PaymentID").value;
@@ -60,33 +59,32 @@ function onFormSubmitPayments() {
     formData["Balance"] = document.getElementById("Balance").value;
 
     if (selectedRecord == null) {
-        saveFormDataPayments(formData);
+        saveFormDataBills(formData);
         console.log(formData)
     } else {
-        updateFormRecordPayments(formData);
+        updateFormRecordBills(formData);
     }
-    clearFormPayments();
+    clearFormBills();
 }
 
-function saveFormDataPayments(data) {
+function saveFormDataBills(data) {
     console.log(data)
     var postData = JSON.stringify(data);
     console.log(postData)
-
     $.ajax({
         type: "POST",
-        url: baseUrl + "/payments",
+        url: baseUrl + "/bills",
         dataType: 'json',
         data: postData,
         contentType: "application/json; charset=utf-8",
         cache: false,
         success: function (response) {
-            addRecordToTablePayments(response.data);
+            addRecordToTableBills(response.data);
         }
     });
 }
 
-function onEditPayments(td) {
+function onEditBills(td) {
     selectedRecord = td.parentElement.parentElement;
     selectedRecordID = selectedRecord.cells[0].innerHTML;
     // document.getElementById("PaymentID").value = selectedRecord.cells[0].innerHTML;
@@ -97,23 +95,23 @@ function onEditPayments(td) {
     document.getElementById("Balance").value = selectedRecord.cells[5].innerHTML;
 }
 
-function updateFormRecordPayments(data) {
+function updateFormRecordBills(data) {
     var updateData = JSON.stringify(data);
     $.ajax({
         type: 'PUT',
-        url: baseUrl + "/payments/" + selectedRecordID,
+        url: baseUrl + "/bills/" + selectedRecordID,
         dataType: 'json',
         data: updateData,
         contentType: "application/json; charset=utf-8",
         cache: false,
         success: function () {
-            updateTableRecordPayments(data);
+            updateTableRecordBills(data);
         }
     });
 
 }
 
-function updateTableRecordPayments(data) {
+function updateTableRecordBills(data) {
     selectedRecord.cells[0].innerHTML = selectedRecordID;
     selectedRecord.cells[0].innerHTML = data.PaymentID;
     selectedRecord.cells[1].innerHTML = data.BillStatus;
@@ -123,16 +121,17 @@ function updateTableRecordPayments(data) {
     selectedRecord.cells[5].innerHTML = data.Balance;
 }
 
-function onDeletePayments(td) {
+function onDeleteBills(td) {
     if (confirm('Are you sure you want to delete this record')) {
         row = td.parentElement.parentElement;
-        document.getElementById("paymentslist").deleteRow(row.rowIndex);
-        clearFormPayments();
+        document.getElementById("billslist").deleteRow(row.rowIndex);
+        clearFormBills();
     }
 
 }
 
-function clearFormPayments() {
+
+function clearFormBills() {
     // document.getElementById("PaymentID").value = "";
     document.getElementById("BillStatus").value = "";
     document.getElementById("Bill").value = "";

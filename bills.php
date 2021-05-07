@@ -1,9 +1,9 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Payments</h1>
+    <h1 class="h2">Bills</h1>
 </div>
 <div class="row">
     <div class="col-md-4">
-        <form onsubmit="event.preventDefault(); onFormSubmitPayments();">
+        <form onsubmit="event.preventDefault(); onFormSubmitBills();">
             <div class="form-group row">
                 <label for="PaymentID" class="col-sm-4 col-form-label col-form-label-sm">PaymentID:</label>
                 <div class="col-sm-8">
@@ -46,12 +46,6 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="PremiseID" class="col-sm-4 col-form-label col-form-label-sm">PremiseID:</label>
-                <div class="col-sm-8">
-                    <input type="text" name="PremiseID" class="form-control form-control-sm" id="PremiseID" placeholder="PremiseID">
-                </div>
-            </div>
-            <div class="form-group row">
                 <div class="col-sm-8">
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
@@ -60,7 +54,7 @@
     </div>
     <div class="col-md-8">
         <div class="table-responsive">
-            <table class="table table-striped table-sm" id="paymentslist">
+            <table class="table table-striped table-sm" id="billslist">
                 <thead>
                     <tr>
                         <th>Payment ID</th>
@@ -69,7 +63,6 @@
                         <th>CustomerID</th>
                         <th>StaffID</th>
                         <th>Balance</th>
-                        <th>PremiseID</th>
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
