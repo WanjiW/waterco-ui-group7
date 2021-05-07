@@ -78,9 +78,9 @@
         <script src="assets/js/jquery-3.3.1.js"></script>
         <script src="assets/js/bootstrap.bundle.js"></script>
         <!-- <script src="assets/js/waterco.js"></script> -->
-        <!-- <script src="assets/js/waterco-bills.js"></script> -->
+        <script src="assets/js/waterco-bills.js"></script>
         <script src="assets/js/waterco-payments.js"></script>
-        <!-- <script src="assets/js/waterco-routes.js"></script> -->
+        <script src="assets/js/waterco-routes.js"></script>
 
     </body>
 </html>

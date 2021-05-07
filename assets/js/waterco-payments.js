@@ -13,20 +13,20 @@ $(document).ready(function () {
         console.log(window.location.href)
         $.ajax({
             type: "GET",
-            url: baseUrl + "/payment",
+            url: baseUrl + "/payments/" + sel,
             cache: false,
             success: function (response) {
                 console.log(response)
                 var data = response.data;
                 data.forEach((payment) => {
-                    addRecordToTable(payment);
+                    addRecordToTablePayments(payment);
                 });
             }
         });
     }
 });
 
-function addRecordToTable(data) {
+function addRecordToTablePayments(data) {
     var paymentslist = document.getElementById("paymentslist").getElementsByTagName("tbody")[0];
     var newRecord = paymentslist.insertRow(paymentslist.length);
 
@@ -43,12 +43,12 @@ function addRecordToTable(data) {
     cell6 = newRecord.insertCell(5);
     cell6.innerHTML = data.Balance;
     cell7 = newRecord.insertCell(6);
-    cell7.innerHTML = `<a onClick="onEdit(this)">Edit</a> 
-                        <a href="index.php?page=billsdash&id="` + data.PaymentID + `>View</a>
-                        <a onClick="onDelete(this)">Delete</a>`;
+    cell7.innerHTML = `<a onClick="onEditPayments(this)">Edit</a> 
+                        <a href="index.php?page=paymentsdash&id="` + data.PaymentID + `>View</a>
+                        <a onClick="onDeletePayments(this)">Delete</a>`;
 }
 
-function onFormSubmit() {
+function onFormSubmitPayments() {
     var formData = {};
     console.log("hello");
     // formData["PaymentID"] = document.getElementById("PaymentID").value;
@@ -59,15 +59,15 @@ function onFormSubmit() {
     formData["Balance"] = document.getElementById("Balance").value;
 
     if (selectedRecord == null) {
-        saveFormData(formData);
+        saveFormDataPayments(formData);
         console.log(formData)
     } else {
-        updateFormRecord(formData);
+        updateFormRecordPayments(formData);
     }
-    clearForm();
+    clearFormPayments();
 }
 
-function saveFormData(data) {
+function saveFormDataPayments(data) {
     console.log(data)
     var postData = JSON.stringify(data);
     console.log(postData)
@@ -79,12 +79,12 @@ function saveFormData(data) {
         contentType: "application/json; charset=utf-8",
         cache: false,
         success: function (response) {
-            addRecordToTable(response.data);
+            addRecordToTablePayments(response.data);
         }
     });
 }
 
-function onEdit(td) {
+function onEditPayments(td) {
     selectedRecord = td.parentElement.parentElement;
     selectedRecordID = selectedRecord.cells[0].innerHTML;
     // document.getElementById("PaymentID").value = selectedRecord.cells[0].innerHTML;
@@ -95,7 +95,7 @@ function onEdit(td) {
     document.getElementById("Balance").value = selectedRecord.cells[5].innerHTML;
 }
 
-function updateFormRecord(data) {
+function updateFormRecordPayments(data) {
     var updateData = JSON.stringify(data);
     $.ajax({
         type: 'PUT',
@@ -105,13 +105,13 @@ function updateFormRecord(data) {
         contentType: "application/json; charset=utf-8",
         cache: false,
         success: function () {
-            updateTableRecord(data);
+            updateTableRecordPayments(data);
         }
     });
 
 }
 
-function updateTableRecord(data) {
+function updateTableRecordPayments(data) {
     selectedRecord.cells[0].innerHTML = selectedRecordID;
     selectedRecord.cells[0].innerHTML = data.PaymentID;
     selectedRecord.cells[1].innerHTML = data.BillStatus;
@@ -121,16 +121,16 @@ function updateTableRecord(data) {
     selectedRecord.cells[5].innerHTML = data.Balance;
 }
 
-function onDelete(td) {
+function onDeletePayments(td) {
     if (confirm('Are you sure you want to delete this record')) {
         row = td.parentElement.parentElement;
         document.getElementById("paymentslist").deleteRow(row.rowIndex);
-        clearForm();
+        clearFormPayments();
     }
 
 }
 
-function clearForm() {
+function clearFormPayments() {
     // document.getElementById("PaymentID").value = "";
     document.getElementById("BillStatus").value = "";
     document.getElementById("Bill").value = "";

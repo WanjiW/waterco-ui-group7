@@ -3,13 +3,13 @@
 </div>
 <div class="row">
     <div class="col-md-4">
-        <form onsubmit="event.preventDefault(); onFormSubmit();">
-            <!-- <div class="form-group row">
+        <form onsubmit="event.preventDefault(); onFormSubmitPayments();">
+            <div class="form-group row">
                 <label for="PaymentID" class="col-sm-4 col-form-label col-form-label-sm">PaymentID:</label>
                 <div class="col-sm-8">
                     <input type="text" name="PaymentID" class="form-control form-control-sm" id="PaymentID" placeholder="PaymentID">
                 </div>
-            </div> -->
+            </div>
             <div class="form-group row">
                 <label for="BillStatus" class="col-sm-4 col-form-label col-form-label-sm">BillStatus:</label>
                 <div class="col-sm-8">
@@ -60,10 +60,10 @@
     </div>
     <div class="col-md-8">
         <div class="table-responsive">
-            <table class="table table-striped table-sm" id="paymentlist">
+            <table class="table table-striped table-sm" id="paymentslist">
                 <thead>
                     <tr>
-                        <!-- <th>Payment ID</th> -->
+                        <th>Payment ID</th>
                         <th>Bill Status</th>
                         <th>Bill</th>
                         <th>CustomerID</th>

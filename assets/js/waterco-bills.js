@@ -19,14 +19,14 @@ $(document).ready(function () {
                 console.log(response)
                 var data = response.data;
                 data.forEach((bill) => {
-                    addRecordToTable(bill);
+                    addRecordToTableBills(bill);
                 });
             }
         });
     }
 });
 
-function addRecordToTable(data) {
+function addRecordToTableBills(data) {
     var billslist = document.getElementById("billslist").getElementsByTagName("tbody")[0];
     var newRecord = billslist.insertRow(billslist.length);
 
@@ -43,12 +43,12 @@ function addRecordToTable(data) {
     cell6 = newRecord.insertCell(5);
     cell6.innerHTML = data.Balance;
     cell7 = newRecord.insertCell(6);
-    cell7.innerHTML = `<a onClick="onEdit(this)">Edit</a> 
+    cell7.innerHTML = `<a onClick="onEditBills(this)">Edit</a> 
                         <a href="index.php?page=billsdash&id="` + data.PaymentID + `>View</a>
-                        <a onClick="onDelete(this)">Delete</a>`;
+                        <a onClick="onDeleteBills(this)">Delete</a>`;
 }
 
-function onFormSubmit() {
+function onFormSubmitBills() {
     var formData = {};
     console.log("hello");
     // formData["PaymentID"] = document.getElementById("PaymentID").value;
@@ -59,15 +59,15 @@ function onFormSubmit() {
     formData["Balance"] = document.getElementById("Balance").value;
 
     if (selectedRecord == null) {
-        saveFormData(formData);
+        saveFormDataBills(formData);
         console.log(formData)
     } else {
-        updateFormRecord(formData);
+        updateFormRecordBills(formData);
     }
-    clearForm();
+    clearFormBills();
 }
 
-function saveFormData(data) {
+function saveFormDataBills(data) {
     console.log(data)
     var postData = JSON.stringify(data);
     console.log(postData)
@@ -79,12 +79,12 @@ function saveFormData(data) {
         contentType: "application/json; charset=utf-8",
         cache: false,
         success: function (response) {
-            addRecordToTable(response.data);
+            addRecordToTableBills(response.data);
         }
     });
 }
 
-function onEdit(td) {
+function onEditBills(td) {
     selectedRecord = td.parentElement.parentElement;
     selectedRecordID = selectedRecord.cells[0].innerHTML;
     // document.getElementById("PaymentID").value = selectedRecord.cells[0].innerHTML;
@@ -95,7 +95,7 @@ function onEdit(td) {
     document.getElementById("Balance").value = selectedRecord.cells[5].innerHTML;
 }
 
-function updateFormRecord(data) {
+function updateFormRecordBills(data) {
     var updateData = JSON.stringify(data);
     $.ajax({
         type: 'PUT',
@@ -105,13 +105,13 @@ function updateFormRecord(data) {
         contentType: "application/json; charset=utf-8",
         cache: false,
         success: function () {
-            updateTableRecord(data);
+            updateTableRecordBills(data);
         }
     });
 
 }
 
-function updateTableRecord(data) {
+function updateTableRecordBills(data) {
     selectedRecord.cells[0].innerHTML = selectedRecordID;
     selectedRecord.cells[0].innerHTML = data.PaymentID;
     selectedRecord.cells[1].innerHTML = data.BillStatus;
@@ -121,16 +121,17 @@ function updateTableRecord(data) {
     selectedRecord.cells[5].innerHTML = data.Balance;
 }
 
-function onDelete(td) {
+function onDeleteBills(td) {
     if (confirm('Are you sure you want to delete this record')) {
         row = td.parentElement.parentElement;
         document.getElementById("billslist").deleteRow(row.rowIndex);
-        clearForm();
+        clearFormBills();
     }
 
 }
 
-function clearForm() {
+
+function clearFormBills() {
     // document.getElementById("PaymentID").value = "";
     document.getElementById("BillStatus").value = "";
     document.getElementById("Bill").value = "";
