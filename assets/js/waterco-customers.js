@@ -6,7 +6,7 @@
 
 var selectedRecord = null;
 var selectedRecordID = null;
-var baseUrl = "http://localhost:5029";
+var baseUrl = "https://waterco-api-group7.herokuapp.com";
 //
 $(document).ready(function () {
      
@@ -41,6 +41,7 @@ function addRecordToTableCustomers(data) {
 }
 
 function onFormSubmitCustomers() {
+   console.log("hello");
    var formData = {};
    formData["CustomerName"] = document.getElementById("CustomerName").value; 
    formData["PhoneNo"]=document.getElementById("PhoneNo").value
@@ -49,7 +50,8 @@ function onFormSubmitCustomers() {
    if (selectedRecord==null){
     saveFormDataCustomers(formData);
    }else{
-       updateFormRecordCustomers=(formData)
+       console.log("x");
+       updateFormRecordCustomers(formData)
    }
 
        
@@ -82,7 +84,8 @@ function onEditCustomers(td) {
      
 }
 
-function updateFormRecordCustomers(){
+function updateFormRecordCustomers(data){
+    console.log("update for customers called");
     var updateData = JSON.stringify(data);
      
         $.ajax({
@@ -90,9 +93,10 @@ function updateFormRecordCustomers(){
             url: baseUrl + "/members/" + selectedRecordID,
             dataType: 'json',
             data: updateData,
-             contentType: "application/json; charset=utf-8",
+            contentType: "application/json; charset=utf-8",
             cache: false,
             success: function () {
+            console.log("success of update for customers");
              updateTableRecordCustomers(data);
             }
          });

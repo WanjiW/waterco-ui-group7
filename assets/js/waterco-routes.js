@@ -6,11 +6,9 @@
 
 var selectedRecord = null;
 var selectedRecordID = null;
-var baseUrl = "http://localhost:5029";
+var baseUrl = "https://waterco-api-group7.herokuapp.com";
 
 $(document).ready(function () {
-    // if (window.location.href == "http://localhost/SummativeWaterCo/waterco-ui/index.php?page=routes") { // add instructions for this to the README
-    //     console.log(window.location.href)
         $.ajax({
             type: "GET",
             url: baseUrl + "/routes",
@@ -23,7 +21,6 @@ $(document).ready(function () {
                 });
             }
         });
-    // }
 });
 
 function addRecordToTableRoutes(data) {

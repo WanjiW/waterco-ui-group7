@@ -7,24 +7,21 @@
 
 var selectedRecord = null;
 var selectedRecordID = null;
-var baseUrl = "http://localhost:5029";
+var baseUrl = "https://waterco-api-group7.herokuapp.com";
 
 $(document).ready(function () {
-    // if (window.location.href == "http://localhost/SummativeWaterCo/waterco-ui/index.php?page=payments") {
-    //     console.log(window.location.href)
-        $.ajax({
-            type: "GET",
-            url: baseUrl + "/payments",
-            cache: false,
-            success: function (response) {
-                console.log(response)
-                var data = response.data;
-                data.forEach((payment) => {
-                    addRecordToTablePayments(payment);
-                });
-            }
-        });
-    // }
+    $.ajax({
+        type: "GET",
+        url: baseUrl + "/payments",
+        cache: false,
+        success: function (response) {
+            console.log(response)
+            var data = response.data;
+            data.forEach((payment) => {
+                addRecordToTablePayments(payment);
+            });
+        }
+    });
 });
 
 function addRecordToTablePayments(data) {
@@ -43,9 +40,9 @@ function addRecordToTablePayments(data) {
     cell5.innerHTML = data.StaffID;
     cell6 = newRecord.insertCell(5);
     cell6.innerHTML = data.Balance;
-    cell7 = newRecord.insertCell(6);
-    cell7.innerHTML = `<a onClick="onEditPayments(this)">Edit</a> 
-                        <a onClick="onDeletePayments(this)">Delete</a>`;
+    // cell7 = newRecord.insertCell(6);
+    // cell7.innerHTML = `<a onClick="onEditPayments(this)">Edit</a> 
+    //                     <a onClick="onDeletePayments(this)">Delete</a>`;
 }
 
 function onFormSubmitPayments() {
@@ -97,6 +94,7 @@ function onEditPayments(td) {
 }
 
 function updateFormRecordPayments(data) {
+    console.log("update for customers called");
     var updateData = JSON.stringify(data);
     $.ajax({
         type: 'PUT',
@@ -106,6 +104,7 @@ function updateFormRecordPayments(data) {
         contentType: "application/json; charset=utf-8",
         cache: false,
         success: function () {
+            console.log("update successful");
             updateTableRecordPayments(data);
         }
     });

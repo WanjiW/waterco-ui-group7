@@ -6,11 +6,9 @@
 
 var selectedRecord = null;
 var selectedRecordID = null;
-var baseUrl = "http://localhost:5029";
+var baseUrl = "https://waterco-api-group7.herokuapp.com";
 
 $(document).ready(function () {
-    // if (window.location.href == "http://localhost/SummativeWaterCo/main/waterco-ui-group7/index.php?page=bills") {
-    //     console.log(window.location.href)
         $.ajax({
             type: "GET",
             url: baseUrl + "/bills",
@@ -23,7 +21,6 @@ $(document).ready(function () {
                 });
             }
         });
-    // }
 });
 
 function addRecordToTableBills(data) {
@@ -42,9 +39,9 @@ function addRecordToTableBills(data) {
     cell5.innerHTML = data.StaffID;
     cell6 = newRecord.insertCell(5);
     cell6.innerHTML = data.Balance;
-    cell7 = newRecord.insertCell(6);
-    cell7.innerHTML = `<a onClick="onEditBills(this)">Edit</a> 
-                        <a onClick="onDeleteBills(this)">Delete</a>`;
+    // cell7 = newRecord.insertCell(6);
+    // cell7.innerHTML = `<a onClick="onEditBills(this)">Edit</a> 
+    //                     <a onClick="onDeleteBills(this)">Delete</a>`;
 }
 
 function onFormSubmitBills() {
@@ -61,6 +58,7 @@ function onFormSubmitBills() {
         saveFormDataBills(formData);
         console.log(formData)
     } else {
+        console.log("x");
         updateFormRecordBills(formData);
     }
     clearFormBills();
@@ -95,6 +93,7 @@ function onEditBills(td) {
 }
 
 function updateFormRecordBills(data) {
+    console.log("update form function called")
     var updateData = JSON.stringify(data);
     $.ajax({
         type: 'PUT',
@@ -104,6 +103,7 @@ function updateFormRecordBills(data) {
         contentType: "application/json; charset=utf-8",
         cache: false,
         success: function () {
+            console.log("update function successful")
             updateTableRecordBills(data);
         }
     });
